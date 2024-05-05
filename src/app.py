@@ -5,7 +5,6 @@
 import argparse
 from datetime import datetime
 import sys
-from threading import Timer
 
 import cv2
 import gradio as gr
@@ -38,24 +37,24 @@ def compute_saliency(image: np.ndarray):
     else:
         return image  # エラーが発生した場合は元の画像を返す
 
-def browser_worker(server_port: int) -> None:
-	from webbrowser import open_new_tab
-	open_new_tab(f"http://127.0.0.1:{server_port}")
-
-def webbrowser_launch(args: argparse.Namespace) -> None:
-	timer = Timer(1, browser_worker, args=[args.server_port])
-	timer.start()
-
 def run(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
     """
         アプリの画面を作成し、Gradioサービスを起動します。
     """
-    with gr.Blocks(title=f"{PROGRAM_NAME} {__version__}") as demo:
+    # analytics_enabled=False
+    # https://github.com/gradio-app/gradio/issues/4226
+    with gr.Blocks(analytics_enabled=False, \
+    	head="""
+    	<meta name="format-detection" content="telephone=no">
+    	<meta name="robots" content="noindex, nofollow">
+    	"""
+    	, title=f"{PROGRAM_NAME} {__version__}") as demo:
+    	
         gr.Markdown(
         """
         # Saliency Map demo.
         1. inputタブで画像を選択します。
-        2. Submitボタンを押します。※外部送信していません。ローカルで完結しています。
+        2. Submitボタンを押します。※画像を外部に送信していません。ローカルで処理が完結しています。
         3. 結果がoverlayタブに表示されます。
         """)
 
@@ -78,8 +77,7 @@ def run(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
         
         demo.queue(default_concurrency_limit=5)
         
-        webbrowser_launch(args)
-        
         print(f"{datetime.now()}:アプリ起動完了({watch.stop():.3f}s)")
         
-        demo.launch(max_file_size=args.max_file_size, server_port=args.server_port)
+        # https://www.gradio.app/docs/gradio/blocks#blocks-launch
+        demo.launch(max_file_size=args.max_file_size, server_port=args.server_port, inbrowser=True, share=False)
