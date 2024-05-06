@@ -3,15 +3,31 @@
     SaliencyMapDemo
 """
 import argparse
+from datetime import datetime
+import sys
+
 import cv2
 import gradio as gr
 import numpy as np
-import sys
+
+import utils
 
 PROGRAM_NAME = 'SaliencyMapDemo'
-__version__ = '0.0.1'
+__version__ = utils.get_package_version()
 
 def compute_saliency(image: np.ndarray):
+    """
+        入力画像から顕著性マップを作成しJET画像を返します。
+        Parameters
+    ----------
+    param1 : np.ndarray
+        入力画像
+ 
+    Returns
+    -------
+    np.ndarray
+        カラーマップのJET画像
+    """
     # OpenCVのsaliencyを作成
     saliency = cv2.saliency.StaticSaliencySpectralResidual_create()
     # 画像の顕著性を計算
@@ -21,23 +37,41 @@ def compute_saliency(image: np.ndarray):
         # 顕著性マップをカラーマップに変換
         saliencyMap = (saliencyMap * 255).astype("uint8")
         saliencyMap = cv2.applyColorMap(saliencyMap, cv2.COLORMAP_JET)
+        
+        #overlay = saliencyMap
         # 元の画像とカラーマップを重ね合わせ
         overlay = cv2.addWeighted(image, 0.5, saliencyMap, 0.5, 0)
+        
         return overlay
     else:
         return image  # エラーが発生した場合は元の画像を返す
 
-def main(args):    
+def run(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
     """
-        Entry Point
+        アプリの画面を作成し、Gradioサービスを起動します。
+    ----------
+    param1 : argparse.Namespace
+        コマンドライン引数
+    param2 : utils.Stopwatch
+        起動したスタート時間
     """
-    with gr.Blocks() as demo:
+    # analytics_enabled=False
+    # https://github.com/gradio-app/gradio/issues/4226
+    with gr.Blocks(analytics_enabled=False, \
+        title=f"{PROGRAM_NAME} {__version__}", \
+        head="""
+        <meta name="format-detection" content="telephone=no">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <meta name="referrer" content="no-referrer" />
+        """) as demo:
+    	
         gr.Markdown(
         """
         # Saliency Map demo.
         1. inputタブで画像を選択します。
-        2. Submitボタンを押します。※外部送信していません。ローカルで完結しています。
-        3. 結果がoverlayタブに表示されます。
+        2. Submitボタンを押します。
+           ※画像は外部送信していません。ローカルで処理が完結します。
+        3. 結果は、overlayタブに表示します。
         """)
 
         submit_button = gr.Button("submit")
@@ -46,26 +80,20 @@ def main(args):
             with gr.Tab("input"):
                 image_input = gr.Image()
             with gr.Tab("overlay"):
-                image_overlay = gr.Image()
+                image_overlay = gr.Image(interactive=False)
 
         
         submit_button.click(compute_saliency, inputs=image_input, outputs=image_overlay)
-        sys.version
+
         gr.Markdown(
         f"""
         Python {sys.version}  
         App {__version__}  
         """)
-        demo.queue(default_concurrency_limit=5).launch(max_file_size=args.max_file_size, server_port=args.server_port)
-
-if __name__ == "__main__":
-    """
-        コマンドライン引数の解析
-    """
-    parser = argparse.ArgumentParser(prog=PROGRAM_NAME, description="SaliencyMapDemo")
-    parser.add_argument('--server_port', type=int, default=9999, help="Gradio server port")
-    parser.add_argument('--max_file_size', type=int, default=20 * gr.FileSize.MB, help="Gradio max file size")
-    parser.add_argument('--version', action='version', version='%(prog)s {0}'.format(__version__))
-
-    main(parser.parse_args())
-
+        
+        demo.queue(default_concurrency_limit=5)
+        
+        print(f"{datetime.now()}:アプリ起動完了({watch.stop():.3f}s)")
+        
+        # https://www.gradio.app/docs/gradio/blocks#blocks-launch
+        demo.launch(max_file_size=args.max_file_size, server_port=args.server_port, inbrowser=True, share=False)

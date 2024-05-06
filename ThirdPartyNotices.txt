@@ -1,0 +1,18 @@
+NOTICES
+
+This repository uses the materials listed or described below.
+
+---------------------------------------------------------
+
+Gradio - Apache-2.0
+https://github.com/gradio-app/gradio
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+opencv-python - MIT
+https://github.com/opencv/opencv-python
+
+LICENSE-3RD-PARTY.txt
+https://github.com/opencv/opencv-python/blob/master/LICENSE-3RD-PARTY.txt
+---------------------------------------------------------
