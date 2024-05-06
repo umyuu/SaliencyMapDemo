@@ -17,7 +17,16 @@ __version__ = utils.get_package_version()
 
 def compute_saliency(image: np.ndarray):
     """
-        顕著性MAP画像を作成します。
+        入力画像から顕著性マップを作成しJET画像を返します。
+        Parameters
+    ----------
+    param1 : np.ndarray
+        入力画像
+ 
+    Returns
+    -------
+    np.ndarray
+        カラーマップのJET画像
     """
     # OpenCVのsaliencyを作成
     saliency = cv2.saliency.StaticSaliencySpectralResidual_create()
@@ -40,22 +49,29 @@ def compute_saliency(image: np.ndarray):
 def run(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
     """
         アプリの画面を作成し、Gradioサービスを起動します。
+    ----------
+    param1 : argparse.Namespace
+        コマンドライン引数
+    param2 : utils.Stopwatch
+        起動したスタート時間
     """
     # analytics_enabled=False
     # https://github.com/gradio-app/gradio/issues/4226
     with gr.Blocks(analytics_enabled=False, \
-    	head="""
-    	<meta name="format-detection" content="telephone=no">
-    	<meta name="robots" content="noindex, nofollow">
-    	"""
-    	, title=f"{PROGRAM_NAME} {__version__}") as demo:
+        title=f"{PROGRAM_NAME} {__version__}", \
+        head="""
+        <meta name="format-detection" content="telephone=no">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <meta name="referrer" content="no-referrer" />
+        """) as demo:
     	
         gr.Markdown(
         """
         # Saliency Map demo.
         1. inputタブで画像を選択します。
-        2. Submitボタンを押します。※画像を外部に送信していません。ローカルで処理が完結しています。
-        3. 結果がoverlayタブに表示されます。
+        2. Submitボタンを押します。
+           ※画像は外部送信していません。ローカルで処理が完結します。
+        3. 結果は、overlayタブに表示します。
         """)
 
         submit_button = gr.Button("submit")
