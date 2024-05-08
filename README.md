@@ -1,9 +1,19 @@
-# SaliencyMap
+<div align="center">
+
+![Python version](https://img.shields.io/badge/python-3.8+-important)
+</div>
+
+# SaliencyMap — in Python
 ## 概要  
 顕著性マップを表示するデモアプリです。  
 私は画像処理についてはまだ初心者ですが、興味を持っています。  
 > **技術的なお話**  
 > opencv-contribパッケージの`cv2.saliency.StaticSaliencySpectralResidual`を呼び出すラッパーアプリです。  
+
+## システム要件  
+- 必要ディスク容量：500MB(Pythonを含みません)  
+- [Python](https://www.python.org/downloads/)をリンク先からダウンロードしてください。  
+          
 
 ## 導入方法  
 ### 1. セットアップ  
