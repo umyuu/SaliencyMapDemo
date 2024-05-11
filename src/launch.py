@@ -6,15 +6,18 @@ import argparse
 from datetime import datetime
 
 from utils import get_package_version, Stopwatch
+from reporter import get_current_reporter
 
 def main():
 	"""
 		エントリーポイント
-		コマンドライン引数の解析を行います
+		1, コマンドライン引数の解析を行います
+		2, アプリを起動します。
 	"""
-	print(f"{datetime.now()}:アプリ起動中")
+	log = get_current_reporter()
+	log.info("#アプリ起動中")
 	watch = Stopwatch.startNew()
-
+	
 	import app
 
 	parser = argparse.ArgumentParser(prog=app.PROGRAM_NAME, description="SaliencyMapDemo")
@@ -25,4 +28,4 @@ def main():
 	app.run(parser.parse_args(), watch)
 
 if __name__ == "__main__":
-	main()
+    main()
