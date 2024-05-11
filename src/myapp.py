@@ -45,24 +45,24 @@ def submit_Clicked(image: np.ndarray, algorithm: str):
         np.ndarray: JET画像
         np.ndarray: HOT画像
     """
-    log.info(f"#submit_Clicked")
+    #log.info(f"#submit_Clicked")
     watch = utils.Stopwatch.startNew()
     
     saliency = SaliencyMap(algorithm)
     success, saliencyMap = saliency.computeSaliency(image)
-    log.info(f"#SaliencyMap computeSaliency()")
+    #log.info(f"#SaliencyMap computeSaliency()")
 
     if not success:
         return image, image # エラーが発生した場合は入力画像を返します。
 
-    log.info(f"#jet")        
+    #log.info(f"#jet")        
     jet = convertColorMap(image, saliencyMap, "jet")
     #jet = None
-    log.info(f"#hot")
-    hot = convertColorMap(image, saliencyMap, "turbo")
+    #log.info(f"#hot")
+    hot = convertColorMap(image, saliencyMap, "hot")
     
     saliency = None
-    log.info(f"#submit_Clicked End{watch.stop():.3f}")
+    #log.info(f"#submit_Clicked End{watch.stop():.3f}")
     
     return jet, hot
 
