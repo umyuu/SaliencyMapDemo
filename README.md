@@ -1,6 +1,7 @@
 <div align="center">
 
-![Python version](https://img.shields.io/badge/python-3.8+-important)
+![Python version](https://img.shields.io/badge/python-3.8+-important) |
+<a href="https://colab.research.google.com/github/umyuu/SaliencyMapDemo/blob/main/launch_app.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 </div>
 
 # SaliencyMap — in Python
@@ -29,9 +30,9 @@ run.bat
 > **NOTE**  
 > デフォルトポート番号は、9999です。  
 > アプリが起動せずポート番号を変更する時は、メモ帳で`run.bat`を開きの以下行の9999を別の数字(8888)などに変更し保存してください。  
-> python src\launch.py --server_port 9999  
+> python app.py --server_port 9999  
 > REM 変更後  
-> python src\launch.py --server_port 8888  
+> python app.py --server_port 8888  
 
 ## 補足事項  
 - ローカルで処理が完結します。画像を外部には送信しません。  
