@@ -44,7 +44,7 @@ class SaliencyMap:
 def convertColorMap(
     image: np.ndarray,
     saliencyMap: np.ndarray,
-    colormap_name: Literal["jet", "hot"] = "jet"):
+    colormap_name: Literal["jet", "hot", "turbo"] = "jet"):
     """
     顕著性マップをカラーマップに変換後に、入力画像に重ね合わせします。
     
@@ -56,17 +56,13 @@ def convertColorMap(
     Returns:
         np.ndarray: 重ね合わせた画像(RGBA形式)
     """
-    #image = (image * 255).astype("uint8")
-    #
-    #return cv2.applyColorMap(image, cv2.COLORMAP_JET)
-    
-    
+    colormaps = {"jet": cv2.COLORMAP_JET, "hot": cv2.COLORMAP_HOT, "turbo": cv2.COLORMAP_TURBO}
+    if colormap_name not in colormaps:
+        raise ValueError(colormap_name) 
+
     # 顕著性マップをカラーマップに変換
     saliencyMap = (saliencyMap * 255).astype("uint8")
-    if colormap_name == "jet":        
-        saliencyMap = cv2.applyColorMap(saliencyMap, cv2.COLORMAP_JET)
-    else:
-        saliencyMap = cv2.applyColorMap(saliencyMap, cv2.COLORMAP_HOT)
+    saliencyMap = cv2.applyColorMap(saliencyMap, colormaps[colormap_name])
     #return saliencyMap
     # 入力画像とカラーマップを重ね合わせ
     overlay = cv2.addWeighted(image, 0.5, saliencyMap, 0.5, 0)
