@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-    SaliencyMapDemo
-"""
+from typing import Literal
+
 import argparse
 from datetime import datetime
 import sys
@@ -9,14 +8,14 @@ import sys
 import gradio as gr
 import numpy as np
 
-import utils
-from saliency import SaliencyMap, convertColorMap
-from reporter import get_current_reporter
-        
+import src.utils as utils
+from src.saliency import SaliencyMap, convertColorMap
+from src.reporter import get_current_reporter
+
 PROGRAM_NAME = 'SaliencyMapDemo'
 __version__ = utils.get_package_version()
 log = get_current_reporter()
-
+    
 def jetTab_Selected(image: np.ndarray):
     #print(f"{datetime.now()}#jet")
     saliency = SaliencyMap("SpectralResidual")
@@ -30,7 +29,7 @@ def hotTab_Selected(image: np.ndarray):
     #print(f"{datetime.now()}#hot")
     saliency = SaliencyMap("SpectralResidual")
     success, saliencyMap = saliency.computeSaliency(image)
-    retval = convertColorMap(image, saliencyMap, "hot")
+    retval = convertColorMap(image, saliencyMap, "turbo")
     #print(f"{datetime.now()}#hot")
     
     return retval
@@ -60,13 +59,14 @@ def submit_Clicked(image: np.ndarray, algorithm: str):
     jet = convertColorMap(image, saliencyMap, "jet")
     #jet = None
     log.info(f"#hot")
-    hot = convertColorMap(image, saliencyMap, "hot")
+    hot = convertColorMap(image, saliencyMap, "turbo")
     
     saliency = None
     log.info(f"#submit_Clicked End{watch.stop():.3f}")
+    
     return jet, hot
 
-def run(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
+def runApp(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
     """
     アプリの画面を作成し、Gradioサービスを起動します。
 
@@ -123,11 +123,12 @@ def run(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
         demo.queue(default_concurrency_limit=5)
         
         log.info(f"#アプリ起動完了({watch.stop():.3f}s)")
-        
         # https://www.gradio.app/docs/gradio/blocks#blocks-launch
+        
         demo.launch(
             max_file_size=args.max_file_size,
             server_port=args.server_port,
-            inbrowser=True,
-            share=False,
+            inbrowser=args.inbrowser,
+            share=args.share,
         )
+
