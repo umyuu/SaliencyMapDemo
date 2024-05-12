@@ -2,7 +2,7 @@
 """
     SaliencyMapDemo
 """
-import argparse
+from argparse import ArgumentParser, BooleanOptionalAction
 
 import src.utils as utils
 from src.reporter import get_current_reporter
@@ -22,11 +22,11 @@ def main():
     
     from src.myapp import runApp
 
-    parser = argparse.ArgumentParser(prog=PROGRAM_NAME, description="SaliencyMapDemo")
+    parser = ArgumentParser(prog=PROGRAM_NAME, description="SaliencyMapDemo")
     parser.add_argument('--server_port', type=int, default=7860, help="Gradio server port")
     parser.add_argument('--max_file_size', type=int, default=20 * 1024 * 1024, help="Gradio max file size")
-    parser.add_argument('--inbrowser', type=bool, default=True, help="Gradio inbrowser")
-    parser.add_argument('--share', type=bool, default=False, help="Gradio share")
+    parser.add_argument('--inbrowser',  action=BooleanOptionalAction, default=True, help="Gradio inbrowser")
+    parser.add_argument('--share', action=BooleanOptionalAction, default=False, help="Gradio share")
     parser.add_argument('--version', action='version', version=f'%(prog)s {__version__}')
     
     args = parser.parse_args()
