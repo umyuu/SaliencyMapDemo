@@ -99,7 +99,7 @@ def runApp(args: argparse.Namespace, watch: utils.Stopwatch) -> None:
 
         algorithmType = gr.Radio(["SpectralResidual", "FineGrained"], label="Saliency", value="SpectralResidual", interactive=True)
 
-        submit_button = gr.Button("submit")
+        submit_button = gr.Button("submit", variant="primary")
 
         with gr.Row():
             with gr.Tab("input", id="input"):
