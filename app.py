@@ -23,7 +23,7 @@ def main():
     from src.myapp import runApp
 
     parser = argparse.ArgumentParser(prog=PROGRAM_NAME, description="SaliencyMapDemo")
-    parser.add_argument('--server_port', type=int, default=9999, help="Gradio server port")
+    parser.add_argument('--server_port', type=int, default=7860, help="Gradio server port")
     parser.add_argument('--max_file_size', type=int, default=20 * 1024 * 1024, help="Gradio max file size")
     parser.add_argument('--inbrowser', type=bool, default=True, help="Gradio inbrowser")
     parser.add_argument('--share', type=bool, default=False, help="Gradio share")
