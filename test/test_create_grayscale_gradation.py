@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
+"""単体テストモジュール"""
 import unittest
 
 import numpy as np
 from PIL import Image
 
+
 class TestGrayscale(unittest.TestCase):
-    pass
+    """
+    グレースケールのテスト
+    """
 
 
 def main():
+    """
+    単体テストのエントリーポイント
+    """
     # グラデーションのサイズを定義します
     width = 256
     height = 256
@@ -24,6 +31,7 @@ def main():
 
     # 画像を表示します
     image.show()
+
 
 if __name__ == "__main__":
     #main()

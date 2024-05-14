@@ -1,54 +1,58 @@
+---
+license: mit
+title: SaliencyMapDemo
+sdk: gradio
+emoji: 📊
+colorFrom: yellow
+colorTo: yellow
+pinned: false
+---
 # SaliencyMap — in Python
 ![Python version](https://img.shields.io/badge/python-3.8+-important)
 <a href="https://colab.research.google.com/github/umyuu/SaliencyMapDemo/blob/main/launch_app.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ## 概要  
-顕著性マップを表示するデモアプリです。  
-私は画像処理についてはまだ初心者ですが、興味を持っています。  
-> **技術的なお話**  
-> opencv-contribパッケージの`cv2.saliency.StaticSaliencySpectralResidual`を呼び出すラッパーアプリです。  
+画像における注目すべき領域を可視化する「顕著性マップ」を表示するデモアプリです。  
+私は画像処理についてはまだ初心者ですが、この技術に興味があります。  
+本アプリは、opencv-contribパッケージの`cv2.saliency.StaticSaliencySpectralResidual`を関数を実行するラッパーアプリです。  
 
 ## 使い方  
-### a. Google Colabで実行する。
-このアプリを Colab で実行するには<a href="https://colab.research.google.com/github/umyuu/SaliencyMapDemo/blob/main/launch_app.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>をクリックします。  
+### a. Google Colabで実行  
+<a href="https://colab.research.google.com/github/umyuu/SaliencyMapDemo/blob/main/launch_app.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>をクリックして、簡単に実行できます。  
 
-### b. アプリをダウンロードして実行する。  
+### b. アプリをダウンロードして実行  
 #### システム要件  
 - 必要ディスク容量：500MB(Pythonを含みません)  
-- [Python](https://www.python.org/downloads/)をリンク先からダウンロードしてください。  
+- Python のダウンロード:https://www.python.org/downloads/  
 
 #### 導入方法  
 ##### 1. セットアップ  
-- [Releases](https://github.com/umyuu/SaliencyMapDemo/releases)を開きを一番上のAssetsのSource code
-(zip)をダウンロードします。ダウンロード後に展開します。
-
-- 以下のファイルをダブルクリックします。  
-~~~
-01-installation.bat
-~~~
+1. [Releases](https://github.com/umyuu/SaliencyMapDemo/releases)ページを開き、一番上の `Assets` 欄にある `Source code (zip)` をダウンロードして展開します。  
+2. `01-installation.bat`ファイルをダブルクリックします。  
 ##### 2. 実行  
-- 以下のファイルをダブルクリックします。  
-~~~
-run.bat
-~~~
-実行するとブラウザが自動起動し、[http://127.0.0.1:9999](http://127.0.0.1:9999)を開きます。  
-> **トラブルシューティング**  
-> - アプリが起動しない場合  
-> 既定のポート番号(9999)に既に別のアプリが動作している可能性があります。  
-> 別のポート番号に変更する時は、メモ帳で`run.bat`を開き、以下行の9999を別の数字(8888)などに変更し上書き保存を行ってください。  
-> python app.py --server_port 9999  
-> REM 変更後  
-> python app.py --server_port 8888  
+`run.bat`ファイルをダブルクリックします。  
+ブラウザが自動起動し、http://127.0.0.1:9999 にアクセスできます。  
 
+**トラブルシューティング**  
+- アプリが起動しない場合  
+	既定のポート番号 (9999) が使用されている可能性があります。  
+	メモ帳で `run.bat` ファイルを開き、以下の行の `9999` を別の数字 (例: 8888) に変更して上書き保存します。  
+	~~~
+	python app.py --server_port 9999  
+	~~~
+	変更後:
+	~~~
+	python app.py --server_port 8888  
+	~~~
 ##### 補足事項  
-- ローカルで処理が完結します。画像を外部には送信しません。  
+- アプリをダウンロードして実行の場合は、画像処理はローカル環境で行われます。画像は外部に送信されません。  
 
 ##### アンインストール  
-このアプリをアンインストールするには、以下の手順に従ってください。  
-- アプリのフォルダをフォルダ毎削除してください。  
-- アプリで処理した画像ファイルが一時フォルダに残ります。不要な場合は削除をお願いします。  
+以下の手順でアンインストールできます。  
+1. アプリのフォルダを丸ごと削除します。  
+2. アプリで処理した画像は一時フォルダに残ります。不要な場合は削除してください。  
 	- 一時フォルダの場所  
-	パソコンの画面左下の「検索するには、ここに入力します」に以下をコピペしてEnterを押します。  
+	パソコンの画面左下の「検索するには、ここに入力します」に以下をペーストして Enter キーを押します。  
 	~~~
 	C:\Users\%USERNAME%\AppData\Local\Temp\gradio
 	~~~
