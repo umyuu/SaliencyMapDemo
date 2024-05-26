@@ -7,7 +7,7 @@ def get_package_version() -> str:
     """
     バージョン情報
     """
-    return '0.0.4'
+    return '0.0.5'
 
 
 class Stopwatch:

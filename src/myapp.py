@@ -20,7 +20,7 @@ log.info("#アプリ起動中")
 watch = Stopwatch.start_new()
 
 
-def jettab_selected(image: np.ndarray):
+def jet_tab_selected(image: np.ndarray):
     """
     JETタブを選択時
     """
@@ -34,7 +34,7 @@ def jettab_selected(image: np.ndarray):
     return retval
 
 
-def hottab_selected(image: np.ndarray):
+def hot_tab_selected(image: np.ndarray):
     """
     HOTタブを選択時
     """
@@ -106,7 +106,6 @@ def run_app(args: argparse.Namespace) -> None:
             gr.Markdown("""
                 1. inputタブで画像を選択します。
                 2. Submitボタンを押します。
-                   ※画像は外部送信していません。ローカルで処理が完結します。
                 3. 結果は、JETタブとHOTタブに表示します。  
             """)
         algorithm_type = gr.Radio(
@@ -120,15 +119,16 @@ def run_app(args: argparse.Namespace) -> None:
 
         with gr.Row():
             with gr.Tab("input", id="input"):
-
                 image_input = gr.Image(sources=["upload", "clipboard"],
                                        interactive=True)
             with gr.Tab("overlay(JET)"):
                 image_overlay_jet = gr.Image(interactive=False)
-                # tab_jet.select(jetTab_Selected, inputs=[image_input], outputs=image_overlay_jet)
+                # tab_jet.select(jet_tab_selected,
+                # inputs=[image_input],
+                # outputs=image_overlay_jet)
             with gr.Tab("overlay(HOT)"):
                 image_overlay_hot = gr.Image(interactive=False)
-                # tab_hot.select(hotTab_Selected,
+                # tab_hot.select(hot_tab_selected,
                 # inputs=[image_input],
                 # outputs=image_overlay_hot, api_name=False)
         #
