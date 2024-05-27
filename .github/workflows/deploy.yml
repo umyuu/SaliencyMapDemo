@@ -1,0 +1,22 @@
+name: "Deploy"
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true      
+      - name: Set remote URL
+        run: git remote set-url origin ${{ secrets.PRODUCTION_SERVER }}
+
+      - name: Push to hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: git push --force ${{ secrets.PRODUCTION_SERVER }} main
