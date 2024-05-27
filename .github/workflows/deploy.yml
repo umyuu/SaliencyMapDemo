@@ -1,0 +1,20 @@
+name: "Deploy"
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@main
+      
+    - name: Set remote URL
+      run: git remote set-url origin ${{ secrets.PRODUCTION_SERVER }}
+
+    - name: Pull from main
+      run: git pull origin main
+
+    - name: Push to main
+      run: git push origin main
