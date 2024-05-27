@@ -1,9 +1,10 @@
-# このワークフローは、gitコマンドを使用しデプロイを行います。
+# このワークフローは、git pushコマンドを使用してデプロイを行います。
+# SettingsタブのSecrets and variables > Actions > Repository secretsに変数を設定してください。
 name: "Deploy"
 on:
   push:
     branches: [ "main" ]
-  # ワークフローの手動実行を許可する
+  # Actionsタブからワークフローの手動実行を許可します。
   workflow_dispatch:
 
 jobs:
