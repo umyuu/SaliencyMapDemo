@@ -1,5 +1,5 @@
 # このワークフローは、git pushコマンドを使用してデプロイを行います。
-# SettingsタブのSecrets and variables > Actions > Repository secretsに変数を設定してください。
+# Settingsタブの「Secrets and variables」 > 「Actions」 > 「Repository secrets」に変数を設定してください。
 name: "Deploy"
 on:
   push:
@@ -10,6 +10,7 @@ on:
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
+    # Settingsタブの「Environments」 > 「new Environment」 > Name に「production」
     environment: production
     steps:
       - uses: actions/checkout@v4
