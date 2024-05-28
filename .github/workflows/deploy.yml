@@ -1,5 +1,16 @@
-# このワークフローは、git pushコマンドを使用してデプロイを行います。
+# このGit Actionのワークフローは、git pushコマンドを使用し、HuggingFaceのSpaceにデプロイを行います。
+# 公式資料 https://huggingface.co/docs/hub/spaces-github-actions
+## ワークフロー構成
+# [GitHub]のリポジトリ → ワークフローによるgit push → [HuggingFace]のSpaceのリポジトリ
+## ワークフローの初期設定
+# 1, 認証情報を環境変数に設定
 # Settingsタブの「Secrets and variables」 > 「Actions」 > 「Repository secrets」に変数を設定してください。
+# HF_TOKEN…アクセストークン、アクセストークンの発行は、https://huggingface.co/settings/tokens よりTypeを「Write」で発行します。
+# HF_USER_NAME…ユーザー名
+# HF_SPACE_URL…HuggingFaceのSpaceのアドレス
+# 2, デプロイ時の環境保護ルールを適用します。
+# Settingsタブの「Environments」 > 「new Environment」 > Name に「production」で作成します。
+# Deployment protection rulesを設定します。
 name: "Deploy"
 on:
   push:
@@ -10,7 +21,7 @@ on:
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
-    # Settingsタブの「Environments」 > 「new Environment」 > Name に「production」
+    # productionの設定情報を使用します。
     environment: production
     steps:
       - uses: actions/checkout@v4
@@ -19,4 +30,4 @@ jobs:
           lfs: true
 
       - name: Push to hub
-        run: git push --force https://${{ secrets.HF_USER_NAME }}:${{ secrets.HF_TOKEN }}@${{ secrets.HF_SPACE_URL }} main
+        run: git push https://${{ secrets.HF_USER_NAME }}:${{ secrets.HF_TOKEN }}@${{ secrets.HF_SPACE_URL }} main
