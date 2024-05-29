@@ -10,7 +10,7 @@ class SaliencyMap:
     """
     顕著性マップを計算するクラス。
     Example:
-        from lib.saliency import SaliencyMap
+        from src.saliency import SaliencyMap
 
         saliency = SaliencyMap("SpectralResidual")
         success, saliencyMap = saliency.compute(image)

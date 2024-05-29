@@ -56,23 +56,24 @@ def submit_clicked(image: np.ndarray, algorithm: Literal["SpectralResidual", "Fi
         np.ndarray: JET画像
         np.ndarray: HOT画像
     """
-    log.info("#submit_Clicked")
-    watch = Stopwatch.start_new()
+    sw = Stopwatch.start_new()
+    log.info(f"#submit_clicked({sw.elapsed:.3f}s)")
     #
     saliency = SaliencyMap(algorithm)
+    log.info(f"#SaliencyMap({sw.elapsed:.3f}s)")
     success, saliency_map = saliency.compute(image)
-    #log.info("#SaliencyMap compute()")
+    log.info(f"#compute({sw.elapsed:.3f}s)")
 
     if not success:
         return image, image  # エラーが発生した場合は入力画像を返します。
 
-    #log.info("#jet")
+    log.info(f"#jet({sw.elapsed:.3f}s)")
     jet = convert_colormap(image, saliency_map, "jet")
     # jet = None
-    #log.info("#hot")
+    log.info(f"#hot({sw.elapsed:.3f}s)")
     hot = convert_colormap(image, saliency_map, "hot")
     saliency = None
-    log.info(f"#submit_Clicked End{watch.stop():.3f}")
+    log.info(f"#submit_clicked({sw.elapsed:.3f}s)")
     return jet, hot
 
 

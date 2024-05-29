@@ -5,12 +5,12 @@
 from argparse import ArgumentParser, BooleanOptionalAction
 
 from src import PROGRAM_NAME, get_package_version
-from src.myapp import run_app
 
 __version__ = get_package_version()
 
 
 def main():
+    from src.myapp import run_app
     """
         エントリーポイント
         1, コマンドライン引数の解析を行います

@@ -11,6 +11,7 @@
 import json
 from logging import Logger, getLogger
 import logging.config
+
 from typing import Optional
 
 from . import PROGRAM_NAME
