@@ -8,7 +8,7 @@ colorTo: yellow
 pinned: false
 ---
 # SaliencyMap — in Python
-![Python version](https://img.shields.io/badge/python-3.8+-important)
+![Python version](https://img.shields.io/badge/python-3.9+-important)
 <a href="https://colab.research.google.com/github/umyuu/SaliencyMapDemo/blob/main/launch_app.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ## 概要  
