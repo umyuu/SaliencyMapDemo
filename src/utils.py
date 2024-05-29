@@ -7,12 +7,12 @@ def get_package_version() -> str:
     """
     バージョン情報
     """
-    return '0.0.5'
+    return '0.0.6'
 
 
 class Stopwatch:
     """
-    Stopwatch 経過時間を計測するためのクラスです。
+    Stopwatch 経過時間を計測するためのクラス。
     Example:
         from src.utils import Stopwatch
 

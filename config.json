@@ -1,0 +1,42 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "iso8601": {
+            "format": "%(asctime)s%(message)s",
+            "datefmt": "%Y-%m-%dT%H:%M:%S%z"
+        },
+        "jst": {
+            "()": "src.LocalTimeFormatter",
+            "fmt": "%(asctime)s%(message)s",
+            "datefmt": "%Y-%m-%dT%H:%M:%S.%03f%z",
+            "." :{
+                "time_zone": "Asia/Tokyo"
+            }
+        },
+        "utc": {
+            "()": "src.LocalTimeFormatter",
+            "fmt": "%(asctime)s%(message)s",
+            "datefmt": "%Y-%m-%dT%H:%M:%S.%03f%z",
+            "." :{
+                "time_zone": "GMT"
+            }
+        }
+    },
+    "handlers": {
+        "console1": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "jst"
+        }
+    },
+    "loggers": {
+        "SaliencyMapDemo": {
+            "level": "DEBUG",
+            "handlers": ["console1"]
+        }
+    },
+    "root": {
+        "level": "DEBUG"
+    }
+}

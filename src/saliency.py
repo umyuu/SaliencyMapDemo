@@ -8,7 +8,7 @@ import cv2
 
 class SaliencyMap:
     """
-    SaliencyMap 顕著性マップを計算するクラスです。
+    顕著性マップを計算するクラス。
     Example:
         from lib.saliency import SaliencyMap
 
