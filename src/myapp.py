@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 """myapp Widget"""
-from typing import Literal
-
 import argparse
 #from datetime import datetime
 import sys
+from typing import Literal
 
 import gradio as gr
 import numpy as np
 
-from src.utils import Stopwatch, get_package_version
+from . import PROGRAM_NAME
+from src.reporter import log
 from src.saliency import SaliencyMap, convert_colormap
-from src.reporter import get_current_reporter
+from src.utils import Stopwatch, get_package_version
 
-PROGRAM_NAME = 'SaliencyMapDemo'
-__version__ = get_package_version()
-log = get_current_reporter()
 log.info("#アプリ起動中")
 watch = Stopwatch.start_new()
 
@@ -59,23 +56,23 @@ def submit_clicked(image: np.ndarray, algorithm: Literal["SpectralResidual", "Fi
         np.ndarray: JET画像
         np.ndarray: HOT画像
     """
-    #log.info(f"#submit_Clicked")
-    #watch = utils.Stopwatch.startNew()
+    log.info("#submit_Clicked")
+    watch = Stopwatch.start_new()
     #
     saliency = SaliencyMap(algorithm)
     success, saliency_map = saliency.compute(image)
-    # log.info(f"#SaliencyMap compute()")
+    #log.info("#SaliencyMap compute()")
 
     if not success:
         return image, image  # エラーが発生した場合は入力画像を返します。
 
-    # log.info(f"#jet")
+    #log.info("#jet")
     jet = convert_colormap(image, saliency_map, "jet")
     # jet = None
-    # log.info(f"#hot")
+    #log.info("#hot")
     hot = convert_colormap(image, saliency_map, "hot")
     saliency = None
-    #log.info(f"#submit_Clicked End{watch.stop():.3f}")
+    log.info(f"#submit_Clicked End{watch.stop():.3f}")
     return jet, hot
 
 
@@ -91,7 +88,7 @@ def run_app(args: argparse.Namespace) -> None:
     # https://github.com/gradio-app/gradio/issues/4226
     with gr.Blocks(
         analytics_enabled=False,
-        title=f"{PROGRAM_NAME} {__version__}",
+        title=f"{PROGRAM_NAME} {get_package_version()}",
         head="""
         <meta name="format-detection" content="telephone=no">
         <meta name="robots" content="noindex, nofollow, noarchive">
@@ -141,7 +138,7 @@ def run_app(args: argparse.Namespace) -> None:
 
         gr.Markdown(f"""
             Python {sys.version}  
-            App {__version__}  
+            App {get_package_version()}  
         """)
 
         demo.queue(default_concurrency_limit=5)

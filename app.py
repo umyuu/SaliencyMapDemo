@@ -4,10 +4,9 @@
 """
 from argparse import ArgumentParser, BooleanOptionalAction
 
-from src.utils import get_package_version
+from src import PROGRAM_NAME, get_package_version
 from src.myapp import run_app
 
-PROGRAM_NAME = 'SaliencyMapDemo'
 __version__ = get_package_version()
 
 
@@ -17,7 +16,7 @@ def main():
         1, コマンドライン引数の解析を行います
         2, アプリを起動します。
     """
-    parser = ArgumentParser(prog=PROGRAM_NAME, description="SaliencyMapDemo")
+    parser = ArgumentParser(prog=PROGRAM_NAME, description=PROGRAM_NAME)
     parser.add_argument('--inbrowser',
                         action=BooleanOptionalAction, default=True, help="Gradio inbrowser")
     parser.add_argument('--share',
