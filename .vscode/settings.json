@@ -6,6 +6,7 @@
     "fromarray",
     "Gradio",
     "inbrowser",
+    "msecs",
     "ndarray"
   ],
   "python.analysis.typeCheckingMode": "basic",
