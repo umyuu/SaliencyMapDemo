@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """ユーティリティ"""
+from dataclasses import dataclass
 import time
 
 
@@ -10,6 +11,7 @@ def get_package_version() -> str:
     return '0.0.7'
 
 
+@dataclass
 class Stopwatch:
     """
     経過時間を計測するためのクラス。
@@ -20,11 +22,9 @@ class Stopwatch:
         ### 計測する処理
         print(f"{watch.elapsed:.3f}")
     """
-
-    def __init__(self):
-        self._start_time: float = 0
-        self._elapsed: float = 0
-        self._is_running: bool = False
+    _start_time: float = 0
+    _elapsed: float = 0
+    _is_running: bool = False
 
     @property
     def elapsed(self) -> float:
@@ -36,6 +36,13 @@ class Stopwatch:
             self._elapsed = end_time - self._start_time
 
         return self._elapsed
+
+    @property
+    def is_running(self) -> bool:
+        """
+        実行中かどうかを取得します。
+        """
+        return self._is_running
 
     def start(self) -> None:
         """
@@ -63,10 +70,3 @@ class Stopwatch:
             self._elapsed = end_time - self._start_time
             self._is_running = False
         return self._elapsed
-
-    @property
-    def is_running(self) -> bool:
-        """
-        実行中かどうかを取得します。
-        """
-        return self._is_running
