@@ -1,3 +1,4 @@
+REM Gradioのオートリロード用のスクリプトです。
 @echo on
 
 cd %~dp0
