@@ -26,7 +26,7 @@
     "handlers": {
         "console1": {
             "class": "logging.StreamHandler",
-            "level": "DEBUG",
+            "level": "INFO",
             "formatter": "jst"
         }
     },

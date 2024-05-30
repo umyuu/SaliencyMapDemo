@@ -84,17 +84,17 @@ def submit_clicked(image: np.ndarray, algorithm: Literal["SpectralResidual", "Fi
     log.info(f"#submit_clicked({sw.elapsed:.3f}s)")
     #
     saliency = SaliencyMap(algorithm)
-    log.info(f"#SaliencyMap({sw.elapsed:.3f}s)")
+    log.debug(f"#SaliencyMap({sw.elapsed:.3f}s)")
     success, saliency_map = saliency.compute(image)
-    log.info(f"#compute({sw.elapsed:.3f}s)")
+    log.debug(f"#compute({sw.elapsed:.3f}s)")
 
     if not success:
         return image, image  # エラーが発生した場合は入力画像を返します。
 
-    log.info(f"#jet({sw.elapsed:.3f}s)")
+    log.debug(f"#jet({sw.elapsed:.3f}s)")
     jet = convert_colormap(image, saliency_map, "jet")
     # jet = None
-    log.info(f"#hot({sw.elapsed:.3f}s)")
+    log.debug(f"#hot({sw.elapsed:.3f}s)")
     hot = convert_colormap(image, saliency_map, "hot")
     saliency = None
     log.info(f"#submit_clicked({sw.elapsed:.3f}s)")
@@ -166,7 +166,6 @@ with gr.Blocks(
 
 
 if __name__ == "__main__":
-    log.info(f"#launch({watch.elapsed:.3f}s)")
     # アプリを起動します。
     # https://www.gradio.app/docs/gradio/blocks#blocks-launch
     demo.launch(
@@ -175,5 +174,3 @@ if __name__ == "__main__":
         server_port=args.server_port,
         max_file_size=args.max_file_size,
     )
-
-log.info(f"#Hot Reload完了({watch.elapsed:.3f}s)")
