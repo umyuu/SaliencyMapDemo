@@ -33,8 +33,8 @@
   プルリクエストを送信することで、あなたの貢献がリポジトリと同じMITライセンスに従うこと、そしてあなたの貢献が将来的にプロジェクトのライセンス変更に含まれる可能性があることに**ご理解とご協力**をお願いします。  
 
 ## 🐛 バグ報告  
-バグを見つけた場合は、まず[既存のissue](../issues)を確認してください。  
-同じバグについてのissueが存在しない場合は、[新しいバグ報告](../issues/new?assignees=&labels=bug&projects=&template=10-problem.yaml)を作成してください。  
+バグを見つけた場合は、まず[既存のissue](https://github.com/umyuu/SaliencyMapDemo/issues)を確認してください。  
+同じバグについてのissueが存在しない場合は、[新しいバグ報告](https://github.com/umyuu/SaliencyMapDemo/issues/new?assignees=&labels=bug&projects=&template=10-problem.yaml)を作成してください。  
 
 ## 📝 コーディング規約  
 - コードスタイル： このプロジェクトではPEP8に準拠し、コードチェックツールとしてflake8を採用しています。VSCodeを使用し開発すると拡張機能がレコメンドされます。拡張機能を導入して確認してください。  
