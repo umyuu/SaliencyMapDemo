@@ -22,6 +22,13 @@ on:
   schedule:
     - cron: '33 9 * * 6'
 
+# 'concurrency'を使用して、同時に実行できるジョブの数を制限します。
+# この設定により、同じワークフローの複数のジョブが同時に実行されるのを防ぎます。
+# https://docs.github.com/ja/actions/using-workflows/workflow-syntax-for-github-actions#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
