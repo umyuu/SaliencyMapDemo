@@ -23,7 +23,7 @@ pinned: false
 ### b. アプリをダウンロードして実行  
 #### 💻 システム要件  
 - 必要ディスク容量：500MB(Pythonを含みません)  
-- Python :https://www.python.org/downloads/  リンク先よりダウンロードしインストールしてください。
+- Python :https://www.python.org/downloads/  リンク先よりダウンロードしインストールしてください。  
 
 #### 📥 導入方法  
 ##### 1. セットアップ  
