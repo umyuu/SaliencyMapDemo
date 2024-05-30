@@ -1,18 +1,21 @@
-# このGit Actionのワークフローは、git pushコマンドを使用し、HuggingFaceのSpaceにデプロイを行います。
-# 公式資料 https://huggingface.co/docs/hub/spaces-github-actions
-## ワークフロー構成
-# [GitHub]のリポジトリ → ワークフローによるgit push → [HuggingFace]のSpaceのリポジトリ
-## ワークフローの初期設定
-# 1, 認証情報を環境変数に設定
-# Settingsタブの「Secrets and variables」 > 「Actions」 > 「Repository secrets」に変数を設定してください。
-# HF_TOKEN…アクセストークン、アクセストークンの発行は、https://huggingface.co/settings/tokens よりTypeを「Write」で発行します。
-# HF_USER_NAME…ユーザー名
-# HF_SPACE_URL…HuggingFaceのSpaceのアドレス
-# 2, デプロイ時の環境保護ルールを適用します。
-# Settingsタブの「Environments」 > 「new Environment」 > Name に「production」で作成します。
-# Deployment protection rulesを設定します。
+# このGitHub Actionsのワークフローは、HuggingFaceのSpace(以下、Space)にデプロイを行うためのものです。
+# 具体的には、GitHubのリポジトリをチェックアウトし、その内容をSpaceにgit pushします。
+# 詳細な手順はHuggingFaceの公式ドキュメントを参照してください: https://huggingface.co/docs/hub/spaces-github-actions
+## ワークフローの設定手順
+# 1, HuggingFaceで「Write」タイプのアクセストークンを生成します。このトークンは認証に使用します。
+#    生成はこちらから: https://huggingface.co/settings/tokens
+# 2, GitHubのリポジトリの設定で、生成したアクセストークンと他の情報を環境変数として設定します。
+# 設定は「Settings」タブの「Secrets and variables」 > 「Actions」 > 「Repository secrets」から行います。
+#    設定する変数は以下の通りです:
+#    HF_TOKEN: HuggingFaceで生成したアクセストークン
+#    HF_USER_NAME: HuggingFaceのユーザー名
+#    HF_SPACE_URL: SpaceのURL
+# 3, デプロイ時の環境保護ルールを適用します。
+#     「Settings」タブの「Environments」 > 「new Environment」 > Name に「production」を入力して新しい環境設定を作成します。
+#     その後、Deployment protection rulesを設定します。
 name: "Deploy"
 on:
+  # mainブランチへのpushをトリガーにします。
   push:
     branches: [ "main" ]
   # Actionsタブからワークフローの手動実行を許可します。
@@ -21,13 +24,14 @@ on:
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
-    # productionの設定情報を使用します。
+    # productionの設定情報を使用します。これにより、デプロイ時の環境保護ルールを適用できます。
     environment: production
     steps:
+      # GitHubのリポジトリをチェックアウトします。
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
-
+      # チェックアウトしたコードをSpaceにgit pushします。
       - name: Push to hub
         run: git push https://${{ secrets.HF_USER_NAME }}:${{ secrets.HF_TOKEN }}@${{ secrets.HF_SPACE_URL }} main

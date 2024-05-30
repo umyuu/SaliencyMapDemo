@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """src Module"""
 from datetime import datetime
-import logging.config
+import logging
 import re
 from zoneinfo import ZoneInfo
 
@@ -35,7 +35,7 @@ class LocalTimeFormatter(logging.Formatter):
 
         t = dt.strftime(re.sub(self.pattern, "", datefmt))
         match = re.search(self.pattern, datefmt)
-        if not match:
+        if match is None:
             return t
 
         groups = match.groups()

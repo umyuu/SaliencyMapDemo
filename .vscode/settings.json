@@ -2,10 +2,13 @@
   "cSpell.words": [
     "asctime",
     "astype",
+    "codeql",
+    "Colab",
     "dtype",
     "fromarray",
     "Gradio",
     "inbrowser",
+    "msecs",
     "ndarray"
   ],
   "python.analysis.typeCheckingMode": "basic",
