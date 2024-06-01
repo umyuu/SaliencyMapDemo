@@ -2,7 +2,7 @@
 """
     SaliencyMapDemo
 """
-from argparse import ArgumentParser, BooleanOptionalAction
+
 #from datetime import datetime
 import sys
 from typing import Literal
@@ -11,6 +11,7 @@ import gradio as gr
 import numpy as np
 
 from src import PROGRAM_NAME, get_package_version
+from src.args_parser import parse_args
 from src.reporter import log
 from src.saliency import SaliencyMap, convert_colormap
 from src.utils import Stopwatch
@@ -18,25 +19,6 @@ from src.utils import Stopwatch
 __version__ = get_package_version()
 log.info("#アプリ起動中")
 watch = Stopwatch.start_new()
-
-
-def parse_args():
-    """
-    コマンドライン引数の解析を行います
-    """
-    parser = ArgumentParser(prog=PROGRAM_NAME, description=PROGRAM_NAME)
-    parser.add_argument('--inbrowser',
-                        action=BooleanOptionalAction, default=True, help="Gradio inbrowser")
-    parser.add_argument('--share',
-                        action=BooleanOptionalAction, default=False, help="Gradio share")
-    parser.add_argument('--server_port',
-                        type=int, default=7860, help="Gradio server port")
-    parser.add_argument('--max_file_size',
-                        type=str, default="20MB", help="Gradio max file size")
-    parser.add_argument('--version', 
-                        action='version', version=f'%(prog)s {__version__}')
-
-    return parser.parse_args()
 
 
 def jet_tab_selected(image: np.ndarray):
