@@ -6,7 +6,7 @@ import time
 
 def get_package_version() -> str:
     """
-    バージョン情報
+    バージョン情報を取得します。
     """
     return '0.0.8'
 
@@ -29,18 +29,20 @@ class Stopwatch:
     @property
     def elapsed(self) -> float:
         """
-        経過時間を取得します。
+        計測中の経過時間を取得します。
+
+        Returns:
+            float: 計測中の経過時間(小数秒)
         """
         if self._is_running:
-            end_time = time.perf_counter()
-            self._elapsed = end_time - self._start_time
+            self._elapsed = time.perf_counter() - self._start_time
 
         return self._elapsed
 
     @property
     def is_running(self) -> bool:
         """
-        実行中かどうかを取得します。
+        計測が実行中であるかどうかを取得します
         """
         return self._is_running
 
@@ -53,9 +55,12 @@ class Stopwatch:
         self._is_running = True
 
     @classmethod
-    def start_new(cls):
+    def start_new(cls) -> 'Stopwatch':
         """
-        ストップウォッチを生成し計測を開始します。
+        新しいストップウォッチを生成し、計測を開始します。
+
+        Returns:
+            Stopwatch: 新しいストップウォッチオブジェクト
         """
         stopwatch = Stopwatch()
         stopwatch.start()
@@ -63,10 +68,12 @@ class Stopwatch:
 
     def stop(self) -> float:
         """
-        計測を終了します。
+        計測を終了し、経過時間を返します。
+
+        Returns:
+            float: 計測中の経過時間
         """
         if self._is_running:
-            end_time = time.perf_counter()
-            self._elapsed = end_time - self._start_time
+            self._elapsed = time.perf_counter() - self._start_time
             self._is_running = False
         return self._elapsed

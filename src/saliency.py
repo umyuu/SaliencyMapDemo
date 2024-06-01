@@ -8,7 +8,8 @@ import cv2
 
 class SaliencyMap:
     """
-    顕著性マップを計算するクラス。
+    画像から顕著性マップを計算するクラス。
+
     Example:
         from src.saliency import SaliencyMap
 
@@ -19,6 +20,15 @@ class SaliencyMap:
         self,
         algorithm: Literal["SpectralResidual", "FineGrained"] = "SpectralResidual",
     ):
+        """
+        SaliencyMapオブジェクトを初期化します。
+
+        Parameters:
+            algorithm: 使用する顕著性マップアルゴリズムの種類。
+                       有効なアルゴリズムについてはOpenCVのドキュメントを参照してください。
+                       https://docs.opencv.org/4.9.0/d8/d65/group__saliency.html
+
+        """
         self.algorithm = algorithm
         # OpenCVのsaliencyを作成します。
         if algorithm == "SpectralResidual":
@@ -28,17 +38,16 @@ class SaliencyMap:
 
     def compute(self, image: np.ndarray) -> Tuple[bool, Any]:
         """
-        入力画像から顕著性マップを作成します。
+        入力画像から顕著性マップを計算します。
 
         Parameters:
             image: 入力画像
 
         Returns:
-           bool:
-               true: SaliencyMap computed, false:NG
-           np.ndarray: 顕著性マップ               
+            Tuple[bool, Any]: 顕著性マップの計算結果。
+                              bool値がTrueの場合は計算成功、Falseの場合は失敗。
+                              顕著性マップのデータ。
         """
-        # 画像の顕著性を計算します。
         return self.saliency.computeSaliency(image)
 
 
@@ -48,19 +57,24 @@ def convert_colormap(
     colormap_name: Literal["jet", "hot", "turbo"] = "jet"
 ):
     """
-    顕著性マップをカラーマップに変換後に、入力画像に重ね合わせします。
+    入力画像と顕著性マップを合成し、指定されたカラーマップを適用します。
 
     Parameters:
         image: 入力画像
         saliency_map: 顕著性マップ
         colormap_name: カラーマップの種類
+            "jet": Jetカラーマップ
+            "hot": Hotカラーマップ
+            "turbo": Turboカラーマップ
 
     Returns:
-        np.ndarray: 重ね合わせた画像(RGBA形式)
+        np.ndarray: 合成された画像 (RGBA形式)
     """
     maps = {"jet": cv2.COLORMAP_JET, "hot": cv2.COLORMAP_HOT, "turbo": cv2.COLORMAP_TURBO}
+
+    # colormap_nameが有効かどうかをチェック
     if colormap_name not in maps:
-        raise ValueError(colormap_name)
+        raise ValueError(f"Invalid colormap name: {colormap_name}")
 
     # 顕著性マップをカラーマップに変換
     saliency_map = (saliency_map * 255).astype("uint8")

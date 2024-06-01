@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """コマンドライン引数の解析"""
 from argparse import ArgumentParser, BooleanOptionalAction
-from src import PROGRAM_NAME, get_package_version
+from . import PROGRAM_NAME, get_package_version
 
 
 def parse_args():
