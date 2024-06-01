@@ -9,7 +9,7 @@ from src.utils import get_package_version
 
 __all__ = ["LocalTimeFormatter"]
 
-PROGRAM_NAME = 'SaliencyMapDemo'
+PROGRAM_NAME: str = 'SaliencyMapDemo'
 __version__ = get_package_version()
 
 

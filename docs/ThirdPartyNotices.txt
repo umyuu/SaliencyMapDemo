@@ -4,6 +4,14 @@ This repository uses the materials listed or described below.
 
 ---------------------------------------------------------
 
+DSC_0297 - CC0
+https://www.flickr.com/photos/layout_nu/14445520741/
+---------------------------------------------------------
+
+DSC_0108 - CC0
+https://www.flickr.com/photos/layout_nu/14239881090/
+---------------------------------------------------------
+
 Gradio - Apache-2.0
 https://github.com/gradio-app/gradio
 ---------------------------------------------------------

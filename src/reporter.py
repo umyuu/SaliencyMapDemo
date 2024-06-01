@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-    Reporter
     ログハンドラーが重複登録されるのを防ぐために1箇所で生成してログハンドラーを返します。
     Example:
         from src.reporter import log
@@ -27,6 +26,7 @@ class Reporter:
 
     def __new__(cls):
         """
+            インスタンスの生成を制御します。
         """
         # インスタンスがまだ存在しない場合は新たに作成します。
         if not cls._instance:
