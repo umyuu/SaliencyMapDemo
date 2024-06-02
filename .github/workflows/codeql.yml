@@ -19,6 +19,8 @@ on:
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
+  # Actionsタブからワークフローの手動実行を許可します。
+  workflow_dispatch:
   schedule:
     - cron: '33 9 * * 6'
 
