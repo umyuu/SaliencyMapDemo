@@ -29,7 +29,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    uses: './.github/workflows/python-app.yml'
+
   sync-to-hub:
+    needs: build  # 'build'ジョブが成功した後にのみ'sync-to-hub'ジョブを開始します
     runs-on: ubuntu-latest
     # productionの設定情報を使用します。これにより、デプロイ時の環境保護ルールを適用できます。
     environment: production
