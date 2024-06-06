@@ -2,7 +2,7 @@
 # 具体的には、GitHubのリポジトリをチェックアウトし、その内容をSpaceにgit pushします。
 # 詳細な手順はHuggingFaceの公式ドキュメントを参照してください: https://huggingface.co/docs/hub/spaces-github-actions
 ## ワークフローの設定手順
-# 1, HuggingFaceで「Write」タイプのアクセストークンを生成します。このトークンは認証に使用します。
+# 1, HuggingFaceで「Fine-grained (custom)」タイプのアクセストークンを生成します。このトークンは認証に使用します。
 #    生成はこちらから: https://huggingface.co/settings/tokens
 # 2, GitHubのリポジトリの設定で、生成したアクセストークンと他の情報を環境変数として設定します。
 # 設定は「Settings」タブの「Secrets and variables」 > 「Actions」 > 「Repository secrets」から行います。
