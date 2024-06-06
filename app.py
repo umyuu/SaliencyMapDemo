@@ -121,18 +121,31 @@ with gr.Blocks(
         """)
     with gr.Accordion("取り扱い説明書", open=False):
         gr.Markdown("""
-            ### 顕著性マップとは  
-            顕著性マップとは、画像内の注目すべき領域を可視化する手法であり、人間の視覚システムが画像内の重要な情報に焦点を当てる方法を模倣したものです。各ピクセルには注目度合いを表す値が割り当てられ、それに基づいて注目すべき領域が強調されます。  
-            このデモアプリでは、顕著性マップを利用して画像内の注目すべき領域を視覚的に示します。ユーザーが画像をアップロードすると、アプリは顕著性マップを生成し、注目される領域を強調した画像を別タブに表示します。これにより、ユーザーは画像内でどの領域が特に重要であるかを直感的に理解することができます。  
+            ## 顕著性マップとは  
+            顕著性マップとは、画像内の注目すべき領域を視覚化する手法です。この手法は、人間の視覚システムが重要な情報に焦点を当てる方法を模倣しています。各ピクセルには、その注目度合いを表す値が割り当てられ、それに基づいて注目すべき領域が強調されます。  
             ## 操作説明  
             顕著性マップデモを使用する手順は以下の通りです：  
-            1. inputタブで画像を選択します。下部の📋下部のクリップボードアイコン（コピー&ペーストアイコン）よりクリップボートから入力することも出来ます。  
-            2. Submitボタンをクリックすると、選択した画像が処理され、顕著性マップが生成されます。  
-            3. 結果は、JETタブとHOTタブに表示します。  
+            1. 画像の選択: inputタブで調査したい画像を選択します。下部の📋クリップボードアイコン（コピー&ペーストアイコン）よりクリップボートから入力することも出来ます。  
+            2. マップの生成: Submitボタンをクリックすると、選択した画像が処理され、重ね合わされた顕著性マップが生成されます。  
+            3. 結果の確認: 生成された顕著性マップは、JETタブとHOTタブに表示されます。  
             ### 活用アイデア🎨  
             このデモは、創作活動の際に注目するポイントを視覚化するために役立ちます。視覚化された結果を基に、どの部分に加筆が必要かを判断することができます。  
-            例えば、目に注目するポイントが少ない場合は、目を重点的に加筆することで、作品全体の魅力を高めることができるかもしれません。  
+            たとえば、顔の目に注目ポイントが少ない場合、その部分を重点的に加筆することで、作品全体の魅力を高めることができるかもしれません。  
             ご利用いただき、ありがとうございます。  
+        """)
+    with gr.Accordion("Saliency Map User Guide", open=False):
+        gr.Markdown("""
+            ## Learn about saliency maps:  
+            A saliency map visually highlights important areas in an image, mimicking how humans focus on key information.  
+                     Each pixel is assigned a value representing attention level, highlighting regions of interest.  
+            ### Try the demo:  
+            To use the saliency map demo, follow two steps  
+            1. Upload an image or paste it from the clipboard.  
+            2. Click "Submit" to generate and view the saliency map on separate tabs.  
+            ### Application Ideas🎨.  
+            Useful for creative projects to identify points of interest and enhance appeal.  
+                     For instance, if eyes are focal points, focus enhancements there.  
+            Thank you for your interest!  
         """)
     algorithm_type = gr.Radio(
         ["SpectralResidual", "FineGrained"],
