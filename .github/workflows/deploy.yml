@@ -4,15 +4,17 @@
 ## ワークフローの設定手順
 # 1, HuggingFaceで「Fine-grained (custom)」タイプのアクセストークンを生成します。このトークンは認証に使用します。
 #    生成はこちらから: https://huggingface.co/settings/tokens
-# 2, GitHubのリポジトリの設定で、生成したアクセストークンと他の情報を環境変数として設定します。
-# 設定は「Settings」タブの「Secrets and variables」 > 「Actions」 > 「Repository secrets」から行います。
+# 2, デプロイ時の環境設定を作成します。
+#   「Settings」タブの「Environments」 > 「new Environment」 > Name に「production」を入力して新しい環境設定を作成します。
+# Environments / Configure production画面で設定を行います。
+# 2-1, Environment secretsの設定を行います。生成したアクセストークンと他の情報を環境変数として設定します。
 #    設定する変数は以下の通りです:
 #    HF_TOKEN: HuggingFaceで生成したアクセストークン
 #    HF_USER_NAME: HuggingFaceのユーザー名
-#    HF_SPACE_URL: SpaceのURL
-# 3, デプロイ時の環境保護ルールを適用します。
-#     「Settings」タブの「Environments」 > 「new Environment」 > Name に「production」を入力して新しい環境設定を作成します。
-#     その後、Deployment protection rulesを設定します。
+#    HF_SPACE_NAME: Spaceの名前
+# 2-2, Deployment branches and tagsでmainブランチのみに設定を行います。
+#    ブランチにmainを選択します。
+# 2-3, Deployment protection rulesを設定します。
 name: "Deploy"
 on:
   # mainブランチへのpushをトリガーにします。
@@ -30,11 +32,14 @@ jobs:
     # 'concurrency'を使用して、同時に実行できるジョブの数を制限します。
     # この設定により、同じワークフローの複数のジョブが同時に実行されるのを防ぎます。
     # https://docs.github.com/ja/actions/using-workflows/workflow-syntax-for-github-actions#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow  
+    # トップレベルに'concurrency'記述時は、デッドロックが発生します。そのため、この位置で定義します。
+    # > Deploy
+    # > Canceling since a deadlock for concurrency group 'Deploy-refs/heads/main' was detected between 'top level workflow' and 'build' 
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     runs-on: ubuntu-latest
-    # productionの設定情報を使用します。これにより、デプロイ時の環境保護ルールを適用できます。
+    # productionの設定情報を使用します。これにより、デプロイ時の環境変数や環境保護ルールを適用できます。
     environment: production
     steps:
       # GitHubのリポジトリをチェックアウトします。
@@ -44,4 +49,4 @@ jobs:
           lfs: true
       # チェックアウトしたコードをSpaceにgit pushします。
       - name: Push to hub
-        run: git push https://${{ secrets.HF_USER_NAME }}:${{ secrets.HF_TOKEN }}@${{ secrets.HF_SPACE_URL }} main
+        run: git push https://${{ secrets.HF_USER_NAME }}:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/${{ secrets.HF_USER_NAME }}/${{ secrets.HF_SPACE_NAME }} main
