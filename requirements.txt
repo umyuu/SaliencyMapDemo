@@ -1,4 +1,4 @@
-gradio==4.28.3
-gradio_client==0.16.0
-opencv-python==4.9.0.80
-opencv-contrib-python==4.9.0.80
+gradio==4.36.0
+gradio_client==1.0.1
+opencv-python==4.10.0.82
+opencv-contrib-python==4.10.0.82
