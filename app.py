@@ -101,13 +101,10 @@ def gallery_selected(_, evt: gr.SelectData):
 args = parse_args()
 """
 アプリの画面を作成し、Gradioサービスを起動します。
-    analytics_enabled=False
-    https://github.com/gradio-app/gradio/issues/4226
     ホットリロード対応として、topレベルのインデントに。
     https://www.gradio.app/guides/developing-faster-with-reload-mode
 """
 with gr.Blocks(
-    analytics_enabled=False,
     title=f"{PROGRAM_NAME} {get_package_version()}",
     head="""
     <meta name="format-detection" content="telephone=no">
@@ -119,6 +116,7 @@ with gr.Blocks(
         # Saliency Map demo.  
           画像における注目すべき領域を可視化する「顕著性マップ」を表示するデモアプリです。  
         """)
+
     with gr.Accordion("取り扱い説明書", open=False):
         gr.Markdown("""
             ## 顕著性マップとは  
@@ -147,28 +145,21 @@ with gr.Blocks(
                      For instance, if eyes are focal points, focus enhancements there.  
             Thank you for your interest!  
         """)
+
     algorithm_type = gr.Radio(
         ["SpectralResidual", "FineGrained"],
         label="Saliency",
         value="SpectralResidual",
         interactive=True
     )
-
     submit_button = gr.Button("submit", variant="primary")
+    with gr.Tab("input"):
+        image_input = gr.Image(label="input", show_label=True, sources=["upload", "clipboard"])
+    with gr.Tab("overlay(JET)"):
+        image_overlay_jet = gr.Image(label="jet", show_label=True, interactive=False)
+    with gr.Tab("overlay(HOT)"):
+        image_overlay_hot = gr.Image(label="hot", show_label=True, interactive=False)
 
-    with gr.Row():
-        with gr.Tab("input", id="input"):
-            image_input = gr.Image(sources=["upload", "clipboard"], interactive=True)
-        with gr.Tab("overlay(JET)"):
-            image_overlay_jet = gr.Image(interactive=False)
-            # tab_jet.select(jet_tab_selected,
-            # inputs=[image_input],
-            # outputs=image_overlay_jet)
-        with gr.Tab("overlay(HOT)"):
-            image_overlay_hot = gr.Image(interactive=False)
-            # tab_hot.select(hot_tab_selected,
-            # inputs=[image_input],
-            # outputs=image_overlay_hot, api_name=False)
     #
     with gr.Accordion("Sample Image Gallery", open=False):
         gr.Markdown("""
