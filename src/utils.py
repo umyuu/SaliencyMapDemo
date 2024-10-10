@@ -8,7 +8,7 @@ def get_package_version() -> str:
     """
     バージョン情報を取得します。
     """
-    return '0.0.11'
+    return '0.0.12'
 
 
 @dataclass
