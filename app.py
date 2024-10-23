@@ -146,12 +146,6 @@ with gr.Blocks(
             Thank you for your interest!  
         """)
 
-    algorithm_type = gr.Radio(
-        ["SpectralResidual", "FineGrained"],
-        label="Saliency",
-        value="SpectralResidual",
-        interactive=True
-    )
     submit_button = gr.Button("submit", variant="primary")
     with gr.Tab("input", elem_id="input_tab"):
         image_input = gr.Image(label="input", show_label=True, sources=["upload", "clipboard"])
@@ -160,7 +154,14 @@ with gr.Blocks(
     with gr.Tab("overlay(HOT)", elem_id="hot_tab"):
         image_overlay_hot = gr.Image(label="hot", show_label=True, interactive=False)
 
-    #
+    with gr.Accordion("Advanced options", open=False):
+        algorithm_type = gr.Radio(
+            ["SpectralResidual", "FineGrained"],
+            label="Saliency",
+            value="SpectralResidual",
+            interactive=True
+        )
+
     with gr.Accordion("Sample Image Gallery", open=False):
         gr.Markdown("""
             ### 画像のライセンス表示  
