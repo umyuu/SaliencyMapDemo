@@ -162,7 +162,7 @@ with gr.Blocks(
             interactive=True
         )
 
-    with gr.Accordion("Sample Image Gallery", open=False):
+    with gr.Accordion("Examples", open=False):
         gr.Markdown("""
             ### 画像のライセンス表示  
             画像のライセンスはすべてCC0(パブリックドメイン)です。
