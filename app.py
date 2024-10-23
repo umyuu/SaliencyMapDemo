@@ -153,11 +153,11 @@ with gr.Blocks(
         interactive=True
     )
     submit_button = gr.Button("submit", variant="primary")
-    with gr.Tab("input"):
+    with gr.Tab("input", elem_id="input_tab"):
         image_input = gr.Image(label="input", show_label=True, sources=["upload", "clipboard"])
-    with gr.Tab("overlay(JET)"):
+    with gr.Tab("overlay(JET)", elem_id="jet_tab"):
         image_overlay_jet = gr.Image(label="jet", show_label=True, interactive=False)
-    with gr.Tab("overlay(HOT)"):
+    with gr.Tab("overlay(HOT)", elem_id="hot_tab"):
         image_overlay_hot = gr.Image(label="hot", show_label=True, interactive=False)
 
     #
