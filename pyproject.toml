@@ -1,7 +1,7 @@
 [project]
 name = "saliencymapdemo"
 version = "0.0.13"
-description = "Add your description here"
+description = "SaliencyMapDemo"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

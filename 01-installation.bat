@@ -9,6 +9,6 @@ pip install uv
 REM uvの依存関係を同期
 REM `uv sync`を使って、プロジェクトの依存関係を`pyproject.toml`および`uv lock`ファイルに基づいてインストールまたは更新します。
 REM これにより、環境が同期され、必要なライブラリがインストールされます。
-uv sync --reinstall
+uv sync
 
 TIMEOUT /T 10

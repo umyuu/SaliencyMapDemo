@@ -3,7 +3,7 @@ REM Gradioのオートリロード用のスクリプトです。
 
 cd %~dp0
 cd ..
-call venv\Scripts\activate
-gradio app.py
+call .venv\Scripts\activate
+uv run gradio app.py
 
 TIMEOUT /T 10
