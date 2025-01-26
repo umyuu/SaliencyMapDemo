@@ -1,6 +1,6 @@
 [project]
 name = "saliencymapdemo"
-version = "0.0.13"
+version = "1.0.0"
 description = "SaliencyMapDemo"
 readme = "README.md"
 requires-python = ">=3.10"
